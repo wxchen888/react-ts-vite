@@ -64,7 +64,7 @@ HTML5 的 popState 事件可以监听路有变化，但是此种模式必须在�
 
 ### 项目中使用的两种方法
 
-老写法：直接在 router/index.tsx 中用 BrowserRouter、Routes、Route，用 Navigate 组件进行重定向，
+老写法：直接在 router/index.tsx 中用 BrowserRouter、Routes、Route，用 Navigate 组件进行重定向
 然后直接在 main.tsx 引入 router/index.tsx，替换掉 App，此时需要注意在 App 组件中使用 Ouelet 组件作为占位符（和 vue 的 router-view 组件作用一样）
 
 新写法：router/route.tsx 中类似 vue 的路由配置表的写法，和老写法的区别是：
@@ -75,3 +75,9 @@ HTML5 的 popState 事件可以监听路有变化，但是此种模式必须在�
 
 使用 React 中的 lazy 函数包裹一个导出 Promise 的函数
 同时需要在 lazy 导出的组件外层包裹 React.Suspense 组件传入 fallback
+
+## 菜单路由
+
+暂时先写死，把全部的路由都定义好
+
+## 登录页面

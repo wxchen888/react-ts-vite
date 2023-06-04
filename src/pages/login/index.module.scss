@@ -1,0 +1,72 @@
+.loginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 550px;
+  min-height: 100vh;
+  background-color: #eeeeee;
+  background-image: url("@/assets/images/login_bg.svg");
+  background-position: 50%;
+  background-size: 100% 100%;
+  .loginBox {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 96%;
+    height: 94%;
+    padding: 0 4% 0 20px;
+    overflow: hidden;
+    background-color: hsl(0deg 0% 100% / 80%);
+    border-radius: 10px;
+    .loginLeft {
+      width: 750px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .loginForm {
+      padding: 40px 45px 25px;
+      border-radius: 10px;
+      box-shadow: 2px 3px 7px rgb(0 0 0 / 20%);
+      .loginLogo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+        .loginIcon {
+          width: 70px;
+        }
+        .logoText {
+          padding-left: 25px;
+          font-size: 48px;
+          font-weight: bold;
+          color: #475768;
+          white-space: nowrap;
+        }
+      }
+      .loginFormBox{
+        .username,.password {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          span:first-child{
+            flex: 1;
+            text-align: right;
+          }
+          span:nth-child(2){
+            width: 75%;
+            margin-left: 20px;
+          }
+        }
+        .password{
+          margin-top: 20px;
+        }
+      }
+      .loginButton{
+        margin-top: 30px;
+      }
+    }
+  }
+}

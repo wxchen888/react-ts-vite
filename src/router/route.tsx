@@ -1,11 +1,24 @@
 import { lazy } from "react";
-import Layout from "@/pages/layout";
-// import About from "@/pages/about";
+import Layout from "@/layout";
+import Login from "@/pages/login";
 import { Navigate } from "react-router-dom";
 import React from "react";
 
 const Home = lazy(() => import("@/pages/home/index"));
-const About = lazy(() => import("@/pages/about/index"));
+const About = lazy(() => import("@/views/about/index"));
+// 权限管理
+const Account = lazy(() => import("@/views/auth/account/index"));
+const Resource = lazy(() => import("@/views/auth/resource/index"));
+const Role = lazy(() => import("@/views/auth/role/index"));
+// 商品管理
+const ProductList = lazy(() => import("@/views/product/list/index"));
+const ProductCategory = lazy(() => import("@/views/product/category/index"));
+const ProductBrand = lazy(() => import("@/views/product/brand/index"));
+// 用户管理
+const UserIndex = lazy(() => import("@/views/user/index/index"));
+const UserSetup = lazy(() => import("@/views/user/setup/index"));
+// 404
+const NotFound = lazy(() => import("@/pages/404/index"));
 
 const withLoadingComponent = (comp: JSX.Element) => {
   return (
@@ -19,6 +32,10 @@ const routes = [
     element: <Navigate to="/home" />,
   },
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
     element: <Layout />,
     children: [
@@ -30,7 +47,43 @@ const routes = [
         path: "/about",
         element: withLoadingComponent(<About />),
       },
+      {
+        path: "/auth/account",
+        element: withLoadingComponent(<Account />),
+      },
+      {
+        path: "/auth/resource",
+        element: withLoadingComponent(<Resource />),
+      },
+      {
+        path: "/auth/Role",
+        element: withLoadingComponent(<Role />),
+      },
+      {
+        path: "/product/list",
+        element: withLoadingComponent(<ProductList />),
+      },
+      {
+        path: "/product/category",
+        element: withLoadingComponent(<ProductCategory />),
+      },
+      {
+        path: "/product/brand",
+        element: withLoadingComponent(<ProductBrand />),
+      },
+      {
+        path: "/user/index",
+        element: withLoadingComponent(<UserIndex />),
+      },
+      {
+        path: "/user/setup",
+        element: withLoadingComponent(<UserSetup />),
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];
 
