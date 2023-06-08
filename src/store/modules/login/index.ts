@@ -1,5 +1,5 @@
 
-type IState = typeof state
+export type ILoginState = typeof state
 
 type IAction = {
   type: string,
@@ -11,17 +11,27 @@ const state = {
   password: '',
 }
 
-const actions = {
-  changeUserName(state: IState, action: IAction) {
-    state.username = action.value
+const actions: {
+  [key: string]: (newState: ILoginState, action: IAction) => void
+} = {
+  changeUserName(newState: ILoginState, action: IAction) {
+    newState.username = action.value
   },
-  changePassword(state: IState, action: IAction) {
-    state.password = action.value
+  changePassword(newState: ILoginState, action: IAction) {
+    newState.password = action.value
   }
+}
+
+export const reducers: {
+  [key: string]: string
+} = {
+  changeUserName: 'changeUserName',
+  changePassword: 'changePassword'
 }
 
 
 export default {
   state,
-  actions
+  actions,
+  reducers
 }

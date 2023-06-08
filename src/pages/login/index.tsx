@@ -16,9 +16,14 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const { username: usm, password: pwd } = useSelector((state: RootState) => ({
-    username: state.username,
-    password: state.password,
+  const {
+    username: usm,
+    password: pwd,
+    testArr: arr,
+  } = useSelector((state: RootState) => ({
+    username: state.login.username,
+    password: state.login.password,
+    testArr: state.home.testArr,
   }));
   const dispatch = useDispatch();
   const goLogin = () => {
@@ -31,7 +36,11 @@ export default function Login() {
       type: "changePassword",
       value: password,
     });
-    console.log("登录", usm, pwd);
+    dispatch({
+      type: "pushTestArr",
+      value: Math.random().toString(),
+    });
+    console.log("登录", usm, pwd, arr);
   };
 
   return (

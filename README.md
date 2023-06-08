@@ -18,6 +18,15 @@ package.json 命令配置：
 redux 不只针对 react
 react-redux 依赖于 redux，更好的处理 react 状态管理
 
+### redux 的思想
+
+基本流程是调用 API，包裹 reducer 创建出一个 store
+
+reducer 是核心，是一个`纯函数`，主要用于处理和更新程序的 state，接收当前状态 state 和一个 action 对象，返回一个新的 newState
+通常需要分模块划分 reducers，最后通过 combineReducers 合并为根 reducer
+
+在页面中通过提供的 useSelector、useDispatch 两个 hook，分别可以拿到`根store`及派发 action 的 dispatch 回调
+
 ## 路由管理
 
 react-router-dom
