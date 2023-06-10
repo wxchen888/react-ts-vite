@@ -1,9 +1,9 @@
-// import { Outlet, Link } from "react-router-dom";
-import router from "@/router/route";
-import { useRoutes } from "react-router-dom";
+import BeforeRouterEach from "@/request/permission";
+import RouteGuard from "@/request/progress";
+import React from "react";
 
 function App() {
-  const outlet = useRoutes(router);
+  // const outlet = useRoutes(router);
 
   return (
     <>
@@ -16,7 +16,12 @@ function App() {
       {/* 
         新型路由写法：使用useRoutes()函数
       */}
-      {outlet}
+      {/* {outlet} */}
+
+      {/* TODO：这样只有在reload的时候才会有进度条，路由切换时没有 */}
+      <React.Suspense fallback={<RouteGuard></RouteGuard>}>
+        <BeforeRouterEach></BeforeRouterEach>
+      </React.Suspense>
     </>
   );
 }

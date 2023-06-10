@@ -25,6 +25,8 @@ const actions: IActions = {
     newState.asyncStr += action.value
   }
 }
+
+/** 仅供外界使用，不进入reducer */
 export const asyncActions = {
   testAsync: ({
     postId
@@ -61,6 +63,5 @@ export const actionMaps: IActionMaps = getActionMaps()
 export default {
   state,
   actions,
-  asyncActions,
   actionMaps
 }

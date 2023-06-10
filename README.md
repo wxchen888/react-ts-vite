@@ -50,9 +50,12 @@ reducer 是核心，是一个`纯函数`，主要用于处理和更新程序的 
 2、redux 提供的 ts 支持，在 tsx 文件使用时没有 state 的类型提示，必须手动为 rootState 添加类型提示，而且此时还只有 state，而不具备 action 的类型提示
 3、redux-thunk 引入后，同样是 ts 类型提示会有冲突，不是很好解决
 
-## 路由管理
+## http 请求交互
 
-react-router-dom
+### Axios
+
+拦截请求头，做 token 添加、改变 Content-Type 等操作
+拦截响应头，为返回的 res 瘦身或者更改响应类型等操作
 
 ## 初始化样式
 
@@ -84,7 +87,9 @@ scoped
 antd5 不需要引入额外的 antd 的 css 样式就可以直接使用组件
 antd4 还需要引入额外的 css 文件
 
-## 添加路由
+## 路由管理
+
+react-router-dom
 
 ### 两种路由模式
 
@@ -107,6 +112,10 @@ HTML5 的 popState 事件可以监听路有变化，但是此种模式必须在�
 
 使用 React 中的 lazy 函数包裹一个导出 Promise 的函数
 同时需要在 lazy 导出的组件外层包裹 React.Suspense 组件传入 fallback
+
+### 路由守卫
+
+React 不具备路由守卫的概念，需要从 react-router-dom 本身着手
 
 ## 菜单路由
 

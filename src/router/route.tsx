@@ -1,9 +1,10 @@
 import { lazy } from "react";
-import Layout from "@/layout";
+// import Layout from "@/layout";
 import Login from "@/pages/login";
 import { Navigate } from "react-router-dom";
 import React from "react";
 
+const Layout = lazy(() => import("@/layout/index"));
 const Home = lazy(() => import("@/pages/home/index"));
 const About = lazy(() => import("@/views/about/index"));
 // 权限管理
