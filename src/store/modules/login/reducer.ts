@@ -1,17 +1,9 @@
-import LoginReducer, { ILoginState, reducers } from './index'
+import LoginReducer, { actionMaps, IAction } from './index'
 
-export type ILoginReducer = (state: ILoginState, action: {
-  type: string,
-  value: string
-}) => ILoginState
-
-const reducer: ILoginReducer = (state = { ...LoginReducer.state }, action: {
-  type: string,
-  value: string
-}) => {
+const reducer = (state = { ...LoginReducer.state }, action: IAction) => {
   const newState = JSON.parse(JSON.stringify(state))
 
-  if (reducers[action.type]) {
+  if (actionMaps[action.type]) {
     LoginReducer.actions[action.type](newState, action);
     return newState
   } else {

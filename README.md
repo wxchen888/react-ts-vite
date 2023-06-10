@@ -27,6 +27,29 @@ reducer 是核心，是一个`纯函数`，主要用于处理和更新程序的 
 
 在页面中通过提供的 useSelector、useDispatch 两个 hook，分别可以拿到`根store`及派发 action 的 dispatch 回调
 
+#### 异步问题及解决方案
+
+1、异步操作会导致函数不纯，Redux 要求 action creators 必须是纯函数，而 setTimeout、fetch 等异步操作会带来副作用
+2、复杂的异步流程处理起来会很复杂
+
+##### redux-thunk
+
+作为最基础的 redux 异步解决方案
+
+核心：是调用 applyMiddleware 将 redux-thunk 等中间件应用为 dispatch action 和 reducer 之间执行的功能模块，作用就是拦截和增强 store 的 dispatch 方法，处理异步及副作用
+
+目的：是达到最终在 action creator 中可以执行异步操作，并等异步结果返回后以一个普通的 action 对象分发给 reducer 处理
+
+使用：在 tsx 文件里直接引入 asyncActions 里的某个异步操作函数，使用 redux-thunk 增强过的 useDispatch，传入该异步操作函数，redux-thunk 在拿到该异步操作函数后会调用其并作为参数传入真正的 dipatch 函数，asyncActions 拿到后即可在异步操作完毕后，调用真正的 dispatch 函数调用对应的 action，触发 state 的更新
+
+注意：在操作异步函数时，如果想要传入载荷，可以使用闭包的特性，将 asyncActions 的异步操作函数进行处理，返回一个符合 dipatch 要求的函数即可
+
+#### redux 做模块拆分时的问题
+
+1、ts 开发场景下，为了保持类型提示，必须要在添加 new action 的时候手动添加此 action 的批注类型
+2、redux 提供的 ts 支持，在 tsx 文件使用时没有 state 的类型提示，必须手动为 rootState 添加类型提示，而且此时还只有 state，而不具备 action 的类型提示
+3、redux-thunk 引入后，同样是 ts 类型提示会有冲突，不是很好解决
+
 ## 路由管理
 
 react-router-dom

@@ -4,6 +4,8 @@ import styles from "./index.module.scss";
 import { Input, Button } from "antd";
 import React, { ChangeEvent } from "react";
 import { useSelector, useDispatch, RootState } from "react-redux";
+// 使用redux-thunk
+import { asyncActions } from "@/store/modules/home";
 
 export default function Login() {
   const [userName, setUserName] = React.useState("admin");
@@ -18,12 +20,14 @@ export default function Login() {
 
   const {
     username: usm,
-    password: pwd,
-    testArr: arr,
+    // password: pwd,
+    // testArr: arr,
+    asyncStr: str,
   } = useSelector((state: RootState) => ({
     username: state.login.username,
     password: state.login.password,
     testArr: state.home.testArr,
+    asyncStr: state.home.asyncStr,
   }));
   const dispatch = useDispatch();
   const goLogin = () => {
@@ -32,15 +36,22 @@ export default function Login() {
       type: "changeUserName",
       value: userName,
     });
-    dispatch({
-      type: "changePassword",
-      value: password,
-    });
-    dispatch({
-      type: "pushTestArr",
-      value: Math.random().toString(),
-    });
-    console.log("登录", usm, pwd, arr);
+    // dispatch({
+    //   type: "changePassword",
+    //   value: password,
+    // });
+    // dispatch({
+    //   type: "pushTestArr",
+    //   value: Math.random().toString(),
+    // });
+
+    // 异步操作
+    dispatch(
+      asyncActions.testAsync({
+        postId: "postId....",
+      })
+    );
+    console.log("登录", usm, str);
   };
 
   return (

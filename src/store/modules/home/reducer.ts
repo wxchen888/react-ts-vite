@@ -1,16 +1,9 @@
-import HomeReducer, { IHomeState, reducers } from './index'
+import HomeReducer, { IAction, actionMaps } from './index'
 
-export type IHomeReducer = (state: IHomeState, action: {
-  type: string,
-  value: string
-}) => IHomeState
-
-const reducer: IHomeReducer = (state = { ...HomeReducer.state }, action: {
-  type: string,
-  value: string
-}) => {
+const reducer = (state = { ...HomeReducer.state }, action: IAction) => {
   const newState = JSON.parse(JSON.stringify(state))
-  if (reducers[action.type]) {
+
+  if (actionMaps[action.type]) {
     HomeReducer.actions[action.type](newState, action);
     return newState
   } else {
