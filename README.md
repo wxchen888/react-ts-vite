@@ -40,15 +40,27 @@ reducer 是核心，是一个`纯函数`，主要用于处理和更新程序的 
 
 目的：是达到最终在 action creator 中可以执行异步操作，并等异步结果返回后以一个普通的 action 对象分发给 reducer 处理
 
-使用：在 tsx 文件里直接引入 asyncActions 里的某个异步操作函数，使用 redux-thunk 增强过的 useDispatch，传入该异步操作函数，redux-thunk 在拿到该异步操作函数后会调用其并作为参数传入真正的 dipatch 函数，asyncActions 拿到后即可在异步操作完毕后，调用真正的 dispatch 函数调用对应的 action，触发 state 的更新
+##### redux-persist
 
-注意：在操作异步函数时，如果想要传入载荷，可以使用闭包的特性，将 asyncActions 的异步操作函数进行处理，返回一个符合 dipatch 要求的函数即可
+用于持久化存储 Redux 状态的插件，可以将 Redux 的状态存储在本地存储，使应用程序刷新或关闭后也能保持之前的状态，实际上就是 SessionStorage、LocalStorage 两个存储方式
 
-#### redux 做模块拆分时的问题
+Redux-persist 并不是持久化 store 和 reducer，它只负责持久化 Redux 应用程序中的 state。具体来说，它通过将 state 中的数据序列化为字符串并保存到本地存储中，从而实现在应用程序关闭或刷新后，下次重启应用程序时能够恢复之前的 state 数据。
 
-1、ts 开发场景下，为了保持类型提示，必须要在添加 new action 的时候手动添加此 action 的批注类型
-2、redux 提供的 ts 支持，在 tsx 文件使用时没有 state 的类型提示，必须手动为 rootState 添加类型提示，而且此时还只有 state，而不具备 action 的类型提示
-3、redux-thunk 引入后，同样是 ts 类型提示会有冲突，不是很好解决
+在 Redux-persist 的内部实现中，它会使用一个叫做 persistReducer() 的函数，它的作用是将一个普通的 reducer 函数转换为可以支持 state 持久化的 reducer 函数。这个函数接收两个参数：原始的 reducer 函数和一些持久化配置信息（如存储引擎、键名等），然后返回一个全新的 reducer 函数。
+
+为什么要使用 persistReducer() 函数呢？原因在于，对于 Redux 应用程序中的 state 来说，它不仅仅是一个简单的 JavaScript 对象。state 中可能包含了一些表达业务逻辑的数据模型、状态、视图等信息，我们需要对其中的核心数据模型进行持久化存储，以便在应用程序持续运行期间能够始终保持数据的一致性和正确性。
+
+如果只是对 state 进行持久化存储的话，由于整个 state 是由 reducer 函数返回的，所以只需要在存储时将其序列化为字符串即可。但是在恢复 state 时，我们需要知道该如何将字符串反序列化为 JavaScript 对象，并让其与原始的 reducer 函数进行绑定，以便能够正确地处理 state 数据更新。
+
+这就是 persistReducer() 的作用了。它通过对 reducer 函数的包装，实现了每次 dispatch action 时，先从本地存储中读取最新的 state 数据并反序列化为 JavaScript 对象，然后再将其传递给原始的 reducer 函数进行计算和更新。这样，即使应用程序关闭或刷新后重新启动，也能够从上次的状态继续运行，并保持数据的一致性。
+
+##### redux-promise
+
+也是一个 Redux 的中间件，允许 Redux 中 dispatch 异步的 action 并返回 Pormise 对象
+传统的 Redux 异步解决方案是 redux-thunk 或 redux-sage 处理，需要额外的代码封装和管理
+而 redux-promise 可以避免代码冗余和逻辑混乱的问题
+
+使用：编写一个可以返回 Promise 对象的 action creator，然后传递给 Redux 的 dispatch 函数即可，Redux 的 store 会自动处理 Promise 对象中的数据，并将其传递给响应的 reducers 进行状态更新，可以不必过多考虑异步操作和状态管理的细节，更专注于业务
 
 ## http 请求交互
 
