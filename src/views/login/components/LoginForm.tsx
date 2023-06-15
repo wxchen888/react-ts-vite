@@ -4,9 +4,11 @@ import {
   LockOutlined,
   CloseCircleOutlined,
 } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
   const [form] = Form.useForm();
+  const { t } = useTranslation();
 
   return (
     <Form
@@ -40,7 +42,7 @@ const LoginForm = () => {
           }}
           icon={<CloseCircleOutlined />}
         >
-          "login.reset"
+          {t("login.reset")}
         </Button>
         <Button
           type="primary"
@@ -48,7 +50,7 @@ const LoginForm = () => {
           loading={false}
           icon={<UserOutlined />}
         >
-          "login.confirm"
+          {t("login.confirm")}
         </Button>
       </Form.Item>
     </Form>
