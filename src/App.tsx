@@ -1,18 +1,20 @@
-import { HashRouter } from "react-router-dom";
-import Router from "./router";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
+import { getBrowserLang } from "@/utils/util";
+import { ConfigProvider } from "antd";
 import { connect } from "react-redux";
 import { setLanguage } from "./redux/modules/global/action";
-import { useEffect, useState } from "react";
+import { HashRouter } from "react-router-dom";
+import Router from "./router";
+import AuthRouter from "./router/utils/authRouter";
 import useTheme from "./hooks/useTheme";
+import { antDarkTheme, antDefaultTheme } from "@/styles/theme/ant-theme-dark";
 import zhCN from "antd/lib/locale/zh_CN";
 import enUS from "antd/lib/locale/en_US";
-import { ConfigProvider } from "antd";
 import i18n from "i18next";
-import { getBrowserLang } from "@/utils/util";
-import "moment/dist/locale/zh-cn";
+import "dayjs/locale/zh-cn";
 
 function App(props: any) {
-  console.log("props", props);
   const { language, setLanguage, assemblySize, themeConfig } = props;
   const [i18nLocale, setI18nLocale] = useState(zhCN);
 
@@ -36,8 +38,14 @@ function App(props: any) {
 
   return (
     <HashRouter>
-      <ConfigProvider locale={i18nLocale} componentSize={assemblySize}>
-        <Router />
+      <ConfigProvider
+        theme={themeConfig.isDark ? antDarkTheme : antDefaultTheme}
+        locale={i18nLocale}
+        componentSize={assemblySize}
+      >
+        <AuthRouter>
+          <Router />
+        </AuthRouter>
       </ConfigProvider>
     </HashRouter>
   );

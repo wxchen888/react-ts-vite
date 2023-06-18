@@ -5,6 +5,8 @@ import SwitchDark from "@/components/SwitchDark";
 import LoginForm from "./components/LoginForm";
 
 const Login = () => {
+  console.log("login...");
+
   return (
     <div className="login-container">
       <SwitchDark />

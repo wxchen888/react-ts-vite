@@ -1,6 +1,26 @@
 import Login from "@/views/login";
-import Home from "@/views/home";
-import { Navigate, RouteObject, useRoutes } from "react-router-dom";
+import {
+  Navigate,
+  RouteObject as ReactRouteObject,
+  useRoutes,
+} from "react-router-dom";
+import { RouteObject } from "./interface";
+
+/**
+ * 处理动态路由
+ */
+const metaRoutes: Record<string, Array<RouteObject>> = import.meta.glob(
+  "./modules/*.tsx",
+  {
+    eager: true,
+  }
+);
+export const routerArray: RouteObject[] = [];
+Object.keys(metaRoutes).forEach((key) => {
+  Object.keys(metaRoutes[key]).forEach((item: any) => {
+    routerArray.push(...(metaRoutes[key][item] as RouteObject[]));
+  });
+});
 
 export const rootRouter: RouteObject[] = [
   {
@@ -16,10 +36,7 @@ export const rootRouter: RouteObject[] = [
       key: "login",
     },
   },
-  {
-    path: "/home",
-    element: <Home></Home>,
-  },
+  ...routerArray,
   {
     path: "*",
     element: <Navigate to="/404" />,
@@ -27,7 +44,7 @@ export const rootRouter: RouteObject[] = [
 ];
 
 const Router = () => {
-  const routes = useRoutes(rootRouter);
+  const routes = useRoutes(rootRouter as ReactRouteObject[]);
   return routes;
 };
 

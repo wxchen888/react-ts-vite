@@ -4,11 +4,19 @@ import { applyMiddleware } from "redux";
 import reduxThunk from "redux-thunk";
 import reduxPromise from "redux-promise";
 import global from "./modules/global/reducer";
+import auth from "./modules/auth/reducer";
+import menu from "./modules/menu/reducer";
+import tabs from "./modules/tabs/reducer";
+import breadcrumb from "./modules/breadcrumb/reducer";
 import storage from 'redux-persist/lib/storage'
 
 // 创建reducer（拆分reducer）
 const reducer = combineReducers({
-  global
+  global,
+  auth,
+  menu,
+  tabs,
+  breadcrumb
 })
 
 // redux持久化

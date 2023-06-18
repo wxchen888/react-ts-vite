@@ -7,7 +7,7 @@ import "@/language/index";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { store, persistor } from "@/redux";
-import App from "./App.tsx";
+import App from "./App";
 //UI框架样式
 import "@/assets/styles/global.less";
 

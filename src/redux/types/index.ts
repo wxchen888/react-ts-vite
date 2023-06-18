@@ -18,3 +18,30 @@ export interface GlobalState {
   language: string;
   themeConfig: ThemeConfigProp;
 }
+
+/* AuthState */
+export interface AuthState {
+  authButtons: {
+    [propName: string]: any;
+  };
+  authRouter: string[];
+}
+
+/* MenuState */
+export interface MenuState {
+  isCollapse: boolean;
+  menuList: Menu.MenuOptions[];
+}
+
+/* TabsState */
+export interface TabsState {
+  tabsActive: string;
+  tabsList: Menu.MenuOptions[];
+}
+
+/* BreadcrumbState */
+export interface BreadcrumbState {
+  breadcrumbList: {
+    [propName: string]: any;
+  };
+}

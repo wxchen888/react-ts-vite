@@ -1,0 +1,29 @@
+.container {
+	display: flex;
+	min-width: 950px;
+	height: 100%;
+
+	.ant-layout-sider {
+		box-sizing: border-box;
+		height: 100%;
+
+		.ant-layout-sider-children {
+			height: 100%;
+			background-color: #000;
+		}
+	}
+
+	.ant-layout {
+		/* 防止 tabs 超出不收缩 */
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+
+		.ant-layout-content {
+			box-sizing: border-box;
+			flex: 1;
+			padding: 10px 12px;
+			overflow-x: hidden;
+		}
+	}
+}

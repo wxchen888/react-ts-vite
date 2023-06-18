@@ -1,5 +1,5 @@
-import defaultTheme from '@/styles/theme/theme-default.less'
-import darkTheme from '@/styles/theme/theme-dark.less'
+import defaultTheme from '@/styles/theme/theme-default.less?inline'
+import darkTheme from '@/styles/theme/theme-dark.less?inline'
 import { ThemeConfigProp } from '@/redux/types'
 
 /** 全局主题配置 */
